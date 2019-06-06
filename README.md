@@ -1,6 +1,6 @@
 # Hierarchical-Softmax
 This is a scalable hierarchical softmax layer for Neural Networks with large output classes.
-In our previous project Next-Word Prediction:[Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
+In our previous project Next-Word Prediction: [Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
 there was an issue of large vocabulary. There was a bottleneck at the Softmax Layer due to the large number of output classes.
 In order to solve this issue many solutions were proposed:
   1. Hierarchical Softmax
