@@ -25,7 +25,7 @@ In this paper Prof. Hinton talks about a clustering algorithm. I will define it 
     * So input at each forward pass will be (n-1, 1, 100)
   * Hidden Layers apply matrix transformations, with weights C
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Screenshot%202019-06-05%20at%208.38.05%20PM.png'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Screenshot%202019-06-05%20at%208.38.05%20PM.png' width=150>
 </p>
   
   * Output will be w<sub>n</sub>
