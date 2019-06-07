@@ -98,7 +98,7 @@ This produces a (**|V|**, **|V|-1**) matrix - **intermed_path_prob**(Fig-7(c)).
 
 For this purpose **base** is a matrix with value 1 in the location where node in **intermed_path_prob** is negative(right child) and 0 for positive(left child). (Fig-7(b)) 
 
-`Note: base will consist of 1 in places where node is not present in path of that path. This does not mean that node has 100% probability, it is a minor corrected to obtain the multplication of d_i along say: [0.1, 0.2, 0.3, 0, 0, 0]. this will obtain a zero probability, hence it converted to [0.1, 0.2, 0.3, 1, 1, 1]`
+`Note: base will consist of 1 in places where node is not present in path of that path. This does not mean that node has 100% probability, it is a minor correction to obtain the multplication of d_i(Eq-2) along say: leaf_x: [0.1, 0.2, 0.3, 0, 0, 0]. this will obtain a P(leaf_x) = 0, hence it converted to [0.1, 0.2, 0.3, 1, 1, 1] to obtain P(leaf_x) = 0.0006`
 <p align='center'>
   <b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
   </p>
@@ -108,9 +108,7 @@ For this purpose **base** is a matrix with value 1 in the location where node in
  <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_path_probs.png' width=270>
 </p>
 
-Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** from **(1-P(left_child))** and **P(node not in path) = 0**
-
-This logic is explained in: [Hierarchical Softmax as output activation function in neural-network](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
+For further details: [Hierarchical Softmax as output activation function in neural-network](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
 ### 2.1. Final Probability
 We do this in either of two ways: 
