@@ -92,9 +92,9 @@ Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs wi
 
 * Step-5:
 Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision_matrix** produces [**|V|**, **|V|-1**] with matrix respective node probabilities. **base** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
-
-**corrected_probs** = **base** + **intermed_path_prob**
 <p align='center'>
+<b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
+
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=270>
   =
  <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=270>
