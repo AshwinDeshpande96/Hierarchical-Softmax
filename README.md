@@ -161,6 +161,6 @@ Following is the asymptotic relation with respected to increasing vocabulary siz
 * Hierarchical Softmax: O(lg|V|)
 
 This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
-
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=400>
 </p>
