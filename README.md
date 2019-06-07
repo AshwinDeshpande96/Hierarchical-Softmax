@@ -2,16 +2,14 @@
 This is a scalable hierarchical softmax layer for Neural Networks with large output classes.
 In our previous project Next-Word Prediction: [Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
 there was an issue of large vocabulary. There was a bottleneck at the Softmax Layer due to the large number of output classes.
-In order to solve this issue many solutions were proposed:
+In the paper [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906) many solutions are proposed:
   1. Hierarchical Softmax
   2. Differentiated Softmax
   3. Target Sampling
   4. Noise Contrastive Estimation
   5. Infrequent Normalization
 
-You can read about it here: [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906)
-
-This project is mainly an implementation of Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf).
+This project builds on the idea in Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf).
 ## 1. Introduction
 In Neural Network Language Models(NNLM) with huge number of words in vocabulary, exhaustive activation functions such as Softmax are very slow.  This paper addresses shortcomings of Softmax. It consists of mainly two ideas
 1. Representing words as low-dimensional feature vectors - to learn relation between words and contexts.
@@ -86,7 +84,7 @@ Each word/leaf has a path from the root. Length of this path will be the height 
 
 Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: (**|V|**, **|V|-1**) is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=540>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
 </p>
 
 * Step-5:
