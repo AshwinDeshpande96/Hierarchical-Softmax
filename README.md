@@ -74,7 +74,7 @@ This produces a (**|V|-1**, 1) matrix
 </p>
 
 * Step-3: 
-d<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
+**d**<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/left_child_probs.png' width=510 /> 
@@ -119,7 +119,7 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
 </p>
 
-### 2.1.2. Reducing matrix and using Log Method
+#### 2.1.2. Reducing matrix and using Log Method
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
