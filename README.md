@@ -148,7 +148,7 @@ But we see that by inducing these two step process(line-4 and line-6) the time i
     3   x1 = tree.base + x1
     4   x1 = tf.log(x1)                                   #extra step #1
     5   x1 = tf.math.reduce_sum(x1, axis=1)               #reduce_prod is replaced by reduce_sum
-    6  return tf.math.exp(x1)                            #extra step #2
+    6   return tf.math.exp(x1)                            #extra step #2
  
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
