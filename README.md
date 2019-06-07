@@ -90,7 +90,7 @@ Hence a matrix is created with **|V|** rows, and each row consists **|V|**-1 col
 * Step-5: Since we have decisions for every leaf, we can now obtain the probabilities associated with those decisions. 
 
 1. First step is to negate P(d_i=1)(Left-decision probabilities) in order to get '-P(d_i = 1)' part of P(d_i = 0) = (1 - P(d_i = 1)) => (Right-decision probabilities). This produced by row-wise multiplication of left-child probabilities and decision matrix.
-<p align='center'><b>intermed_path_prob</b> = <b>d**</b><sub>i</sub> x <b>decision_matrix</b> </p> 
+<p align='center'><b>intermed_path_prob</b> = <b>d</b><sub>i</sub> x <b>decision_matrix</b> </p> 
 
 This produces a (**|V|**, **|V|-1**) matrix - **intermed_path_prob**(Fig-7(c)). 
 
