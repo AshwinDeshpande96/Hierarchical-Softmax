@@ -74,7 +74,7 @@ This produces a (**|V|-1**, 1) matrix
 </p>
 
 * Step-3: 
-d<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
+**d**<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/left_child_probs.png' width=510 /> 
@@ -86,8 +86,7 @@ Each word/leaf has a path from the root. Length of this path will be the height 
 
 Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: [**|V|**, **|V|-1**] is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/matrix1.jpg' width=270>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=540>
 </p>
 
 * Step-5:
@@ -107,9 +106,9 @@ Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** fro
 
 This logic is explained in: [Hierarchical Softmax as output](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
-### 2.1. Final Leaf probability calculation
+### 2.1. Final Probability
 We do this in either of two ways: 
-#### 2.1.1. Directly Multiplying node probabilities. 
+#### 2.1.1. Reduce Product
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: [**|V|**, **|V|-1**]) to the final probabilities (shape: [**|V|**, 1]).
 <p align='center'> 
@@ -119,8 +118,7 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
 </p>
 
-### 2.1.2. Reducing matrix and using Log Method
-
+#### 2.1.2. Log Method
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
