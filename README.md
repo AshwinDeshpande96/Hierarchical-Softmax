@@ -13,8 +13,8 @@ You can read about it here: [Strategies for Training Large Vocabulary Neural Lan
 
 This project is mainly an implementation of Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf).
 
-In Neural Network Language Models(NNLM) with huge number of words in vocabulary, exhaustive activation functions such as Softmax are very slow.  This paper addresses shortcomings of Softmax. This paper consists of mainly two ideas
-1. Representing words as low-dimensional feature vectors - so that words with similar meaning and usage have similar feature vectors
+In Neural Network Language Models(NNLM) with huge number of words in vocabulary, exhaustive activation functions such as Softmax are very slow.  This paper addresses shortcomings of Softmax. It consists of mainly two ideas
+1. Representing words as low-dimensional feature vectors - to learn relation between words and contexts.
 2. Clustering similar words in similar components(subtree) using the feature vectors.
 
 In this paper Prof. Hinton talks about a clustering algorithm. I will define it as follows. (If this explanation doesn't summarise the content please go to Section 4 in the Paper)
