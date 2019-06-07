@@ -49,7 +49,9 @@ Number of words/leaves will be **|V|**.
 The number of internal nodes will be equal to **|V|-1**
 
 Input **r_hat** given to this function is an array of Word Feature Vector. In our case: (1, 100)
-
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/r_hat.png' width=610/> 
+</p>
 Equation 2 is executed as described in following steps:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/sigmoid.png' width=310>
