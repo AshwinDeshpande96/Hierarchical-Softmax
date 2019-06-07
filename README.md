@@ -116,10 +116,10 @@ We do this in either of two ways:
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: (**|V|**, **|V|-1**)) to the final probabilities (shape: (**|V|**, 1)).(Fig-8)
         
-    def hierarchical_softmax2(inp, tree):
-      x1 = tf.multiply(tree.decision_matrix, inp)
-      x1 = tree.base + x1
-      return tf.math.reduce_prod(x1, axis=1)
+    1 def hierarchical_softmax2(inp, tree):
+    2   x1 = tf.multiply(tree.decision_matrix, inp)
+    3   x1 = tree.base + x1
+    4   return tf.math.reduce_prod(x1, axis=1)
       
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
