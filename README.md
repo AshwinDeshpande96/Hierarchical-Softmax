@@ -115,11 +115,12 @@ We do this in either of two ways:
 #### 2.1.1. Reduce Product
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: (**|V|**, **|V|-1**)) to the final probabilities (shape: (**|V|**, 1)).(Fig-8)
-`def hierarchical_softmax2(inp, tree):
-    x1 = tf.multiply(tree.decision_matrix, inp)
-    x1 = tree.base + x1
-    return tf.math.reduce_prod(x1, axis=1)
-`
+        
+    def hierarchical_softmax2(inp, tree):
+      x1 = tf.multiply(tree.decision_matrix, inp)
+      x1 = tree.base + x1
+      return tf.math.reduce_prod(x1, axis=1)
+      
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
   </p>
@@ -141,13 +142,14 @@ We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> i
 p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup>
 
 But we see that by inducing these two step process(line-4 and line-6) the time increases. (Fig-9)
-`1 def hierarchical_softmax2(inp, tree):
- 2   x1 = tf.multiply(tree.decision_matrix, input)
- 3   x1 = tree.base + x1
- 4   x1 = tf.log(x1)                                   #extra step #1
- 5   x1 = tf.math.reduce_sum(x1, axis=1)               #reduce_prod is replaced by reduce_sum
- 6  return tf.math.exp(x1)                            #extra step #2
- `
+
+    1 def hierarchical_softmax2(inp, tree):
+    2   x1 = tf.multiply(tree.decision_matrix, input)
+    3   x1 = tree.base + x1
+    4   x1 = tf.log(x1)                                   #extra step #1
+    5   x1 = tf.math.reduce_sum(x1, axis=1)               #reduce_prod is replaced by reduce_sum
+    6  return tf.math.exp(x1)                            #extra step #2
+ 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
