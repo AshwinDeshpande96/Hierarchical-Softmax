@@ -94,9 +94,7 @@ Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision
   </p>
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=270>
-  =
  <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=270>
-  +
  <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_path_probs.png' width=270>
 </p>
 
