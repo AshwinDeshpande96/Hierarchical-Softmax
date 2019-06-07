@@ -107,9 +107,9 @@ Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** fro
 
 This logic is explained in: [Hierarchical Softmax as output](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
-### 2.1. Final Leaf probability calculation
+### 2.1. Final Probability
 We do this in either of two ways: 
-#### 2.1.1. Directly Multiplying node probabilities. 
+#### 2.1.1. Reduce Product
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: [**|V|**, **|V|-1**]) to the final probabilities (shape: [**|V|**, 1]).
 <p align='center'> 
@@ -119,8 +119,7 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
 </p>
 
-#### 2.1.2. Reducing matrix and using Log Method
-
+#### 2.1.2. Log Method
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
