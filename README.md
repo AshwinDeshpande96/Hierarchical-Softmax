@@ -153,4 +153,14 @@ But we see that by inducing the two step process(line-4 and line-6) the computat
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
 </p>
+
 ## 3. Results
+We see significant difference in the computational cost between the softmax and hierarchical softmax model.
+Following is the asymptotic relation with respected to increasing vocabulary size **|V|**.
+* Softmax: O(|V|)
+* Hierarchical Softmax: O(lg|V|)
+
+This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
+
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
+</p>
