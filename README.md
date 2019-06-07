@@ -86,7 +86,7 @@ Each word/leaf has a path from the root. Length of this path will be the height 
 
 Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: (**|V|**, **|V|-1**) is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=540>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
 </p>
 
 * Step-5:
