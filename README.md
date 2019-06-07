@@ -103,9 +103,9 @@ For this purpose **base** is a matrix with value 1 in the location where node in
   <b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
   </p>
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=270>
- <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=270>
- <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_path_probs.png' width=270>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=260, height=300>
+ <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=300, height=290>
+ <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_path_probs.png' width=280>
 </p>
 
 For further details: [Hierarchical Softmax as output activation function in neural-network](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
@@ -151,6 +151,6 @@ But we see that by inducing these two step process(line-4 and line-6) the time i
     6   return tf.math.exp(x1)                            #extra step #2
  
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
 </p>
 ## 3. Results
