@@ -40,7 +40,7 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
 
 ## 2. Architecture
 
-We devise a method where the control statements involved in fetching subset of nodes from a hierarchical binary tree are converted into direct matrix multiplication. This is done so that in libraries such as keras the operations in forward function are needed to be differentiable. Hence, all the operations are matrix manipulation type that have gradients defined in keras to allow back-propagation.
+We devise a method where the control statements involved in fetching subset of nodes from a hierarchical binary tree are converted into direct matrix multiplication. This is done because in libraries such as keras the operations in forward-function needs to be differentiable. Hence, all the operations are matrix manipulation type that have gradients defined in keras which allows for back-propagation.
 
 The method is as follows:
 
