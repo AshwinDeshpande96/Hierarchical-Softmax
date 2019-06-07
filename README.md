@@ -29,7 +29,7 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
   * Output will be w<sub>n</sub>
     * Will be a predicted feature vector r_hat
     * So output shape at each forward pass will be (1,100)
-      * If there are 8 words in vocabulary (output classes) - Fig 1
+      * If there are 8 words in vocabulary (output classes)(Fig-1)
         * Each of q<sub>i</sub> are multiplied with output r_hat and activated using sigmoid. Gives the probability of decision going to left subtree. <p align='center'> P(d<sub>i</sub> = 1): sigmoid( r_hat * q<sub>i</sub> + b<sub>i</sub>) </p>
         * Each leaf is scored according to it's decision code. For example: 
           * leaf_5: P(d<sub>1</sub>=1, d<sub>2</sub>=1, d<sub>3</sub>=1)
@@ -46,49 +46,59 @@ Number of words/leaves will be **|V|**.
 
 The number of internal nodes will be equal to **|V|-1**
 
-Input **r_hat** given to this function is an array of Word Feature Vector. In our case: (1, 100)
+Input **r_hat** given to this function is an array of Word Feature Vector. In our case the vector is of shape (1,100) (Fig-2)
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/r_hat.png' width=650 height=100 /> 
 </p>
-Equation 2 is executed as described in following steps:
+Eq-2 is executed as described in following steps:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/sigmoid.png' width=310>
 </p>
 
-* Step-1:
-Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|-1**, 100, 1) is created for **q**<sub>i</sub> for i = (1, **|V|-1**)
+* Step-1: Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|**-1, 100, 1)(Fig-3) is created for **q**<sub>i</sub> where i = 1 to  **|V|**-1.
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/node_vectors.png' width=550 /> 
 </p>
 
 * Step-2: 
-Each **q**<sub>i</sub> x **r_hat**, which is: **node_vector** x **r_hat**
+Next Operation: **q**<sub>i</sub> x **r_hat** for all i = 1 to **|V|**-1. 
 
-This produces a (**|V|-1**, 1) matrix
+**node_vector** consists of **q**<sub>i</sub> for all i = 1 to **|V|**-1.
+
+**node_vector** x **r_hat** produces a (**|V|-1**, 1) intermediate matrix (Fig-4)
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_q.png' width=510 /> 
 </p>
 
-* Step-3: 
-**d**<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
+* Step-3: Next operation consists of producing the P(d<sub>i</sub>=1) - Probability of decision from node q<sub>i</sub> to take left child route.
+**d**<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix(Fig-5), each value consisting of the probability of choosing left child.
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/left_child_probs.png' width=510 /> 
 </p>
 
-* Step-4: 
-Each word/leaf has a path from the root. Length of this path will be the height of the tree.
+* Step-4: Previous step produces probability of the decision to take left-child decision in every node in the tree. But the path from root to one particular leaf will consist of only subset of all **|V|**-1 nodes. Length of this path will be less than or equal to height **h** of the tree. 
 <p align='center'> <b>h</b> = Ceiling(lg(<b>|V|</b>)) </p>
 
-Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: (**|V|**, **|V|-1**) is created with each node in path consisting of 1 for left child and -1 for right child:
+Hence a matrix is created with **|V|** rows, and each row consists **|V|**-1 columns. Column values is either of three values values (1, -1, 0) signifying left-child, right-child or not-in-path. This matrix is called **decision_matrix**. This is a sparse matrix of shape: (**|V|**, **|V|-1**). (Fig-6)
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
 </p>
 
-* Step-5:
-Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision_matrix** produces (**|V|**, **|V|-1**) with matrix respective node probabilities. **base** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
+* Step-5: Since we have decisions for every leaf, we can now obtain the probabilities associated with those decisions. 
+
+1. First step is to negate P(d_i=1)(Left-decision probabilities) in order to get '-P(d_i = 1)' part of P(d_i = 0) = (1 - P(d_i = 1)) => (Right-decision probabilities). This produced by row-wise multiplication of left-child probabilities and decision matrix.
+<p align='center'><b>intermed_path_prob</b> = <b>d**</b><sub>i</sub> x <b>decision_matrix</b> </p> 
+
+This produces a (**|V|**, **|V|-1**) matrix - **intermed_path_prob**(Fig-7(c)). 
+
+2. Second step is to obtain 1 P(d_i=0) = 1 + (-P(d_i = 1)) and 0 in P(d_i=0) = 0 + P(d_i=1).
+
+For this purpose **base** is a matrix with value 1 in the location where node in **intermed_path_prob** is negative(right child) and 0 for positive(left child). (Fig-7(b)) 
+
+`Note: base will consist of 1 in places where node is not present in path of that path. This does not mean that node has 100% probability, it is a minor corrected to obtain the multplication of d_i along say: [0.1, 0.2, 0.3, 0, 0, 0]. this will obtain a zero probability, hence it converted to [0.1, 0.2, 0.3, 1, 1, 1]`
 <p align='center'>
   <b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
   </p>
@@ -100,7 +110,7 @@ Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision
 
 Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** from **(1-P(left_child))** and **P(node not in path) = 0**
 
-This logic is explained in: [Hierarchical Softmax as output](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
+This logic is explained in: [Hierarchical Softmax as output activation function in neural-network](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
 ### 2.1. Final Probability
 We do this in either of two ways: 
