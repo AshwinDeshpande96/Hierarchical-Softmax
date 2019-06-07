@@ -151,6 +151,6 @@ But we see that by inducing these two step process(line-4 and line-6) the time i
     6   return tf.math.exp(x1)                            #extra step #2
  
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
 </p>
 ## 3. Results
