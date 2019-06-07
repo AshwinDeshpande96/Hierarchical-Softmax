@@ -90,7 +90,7 @@ Hence a matrix is created with **|V|** rows, and each row consists **|V|**-1 col
 * Step-5: Since we have decisions for every leaf, we can now obtain the probabilities associated with those decisions. 
 
 1. First step is to negate P(d_i=1)(Left-decision probabilities) in order to get '-P(d_i = 1)' part of P(d_i = 0) = (1 - P(d_i = 1)) => (Right-decision probabilities). This produced by row-wise multiplication of left-child probabilities and decision matrix.
-<p align='center'><b>intermed_path_prob</b> = <b>d**</b><sub>i</sub> x <b>decision_matrix</b> </p> 
+<p align='center'><b>intermed_path_prob</b> = <b>d</b><sub>i</sub> x <b>decision_matrix</b> </p> 
 
 This produces a (**|V|**, **|V|-1**) matrix - **intermed_path_prob**(Fig-7(c)). 
 
@@ -141,7 +141,7 @@ We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> i
 
 p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup>
 
-But we see that by inducing these two step process(line-4 and line-6) the time increases. (Fig-9)
+But we see that by inducing the two step process(line-4 and line-6) the computational cost increases. (Fig-9)
 
     1 def hierarchical_softmax(inp, tree):
     2   x1 = tf.multiply(tree.decision_matrix, input)
@@ -153,4 +153,14 @@ But we see that by inducing these two step process(line-4 and line-6) the time i
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
 </p>
+
 ## 3. Results
+We see significant difference in the computational cost between the softmax and hierarchical softmax model.
+Following is the asymptotic relation with respected to increasing vocabulary size **|V|**.
+* Softmax: O(|V|)
+* Hierarchical Softmax: O(lg|V|)
+
+This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
+
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
+</p>
