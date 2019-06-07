@@ -129,11 +129,12 @@ For example the decisions probabilities for left most leaf of a 10,000 size voca
 We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> in two step process.
 1. log<sub>n</sub>(**D**) to obtain log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>)
 
-2. Sum(log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>) obtains = log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)
+2. Sum(log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>) obtains 
+    = log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)
 
-e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup> gives: 
+p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup> gives: 
 
-p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>
+
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
