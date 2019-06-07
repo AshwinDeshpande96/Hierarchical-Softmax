@@ -59,7 +59,7 @@ Equation 2 is executed as described in following steps:
 Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|-1**, 100, 1) is created for **q**<sub>i</sub> for i = (1, **|V|-1**)
 
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/node_vectors.png' width=810 /> 
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/node_vectors.png' width=550 /> 
 </p>
 
 * Step-2: 
