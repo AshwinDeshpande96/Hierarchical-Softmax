@@ -50,7 +50,7 @@ The number of internal nodes will be equal to **|V|-1**
 
 Input **r_hat** given to this function is an array of Word Feature Vector. In our case: (1, 100)
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/r_hat.png' width=610/> 
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/r_hat.png' width=810 height=50 /> 
 </p>
 Equation 2 is executed as described in following steps:
 <p align='center'>
@@ -60,13 +60,25 @@ Equation 2 is executed as described in following steps:
 * Step-1:
 Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|-1**, 100, 1) is created for **q**<sub>i</sub> for i = (1, **|V|-1**)
 
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/node_vectors.png' width=810 /> 
+</p>
+
 * Step-2: 
 Each **q**<sub>i</sub> x **r_hat**, which is: **node_vector** x **r_hat**
 
 This produces a (**|V|-1**, 1) matrix
 
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_q.png' width=510 /> 
+</p>
+
 * Step-3: 
 d<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each value consisting of the probability of choosing left child.
+
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/left_child_probs.png' width=510 /> 
+</p>
 
 * Step-4: 
 Each word/leaf has a path from the root. Length of this path will be the height of the tree.
@@ -74,6 +86,7 @@ Each word/leaf has a path from the root. Length of this path will be the height 
 
 Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **mat1** of shape: [**|V|**, **|V|-1**] is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/matrix1.jpg' width=270>
 </p>
 
@@ -81,6 +94,13 @@ Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs wi
 Row wise multiplication: **mat2** = **d**<sub>i</sub> x **mat1** produces [**|V|**, **|V|-1**] with matrix respective node probabilities. **mat3** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
 
 **node_probabilities** = **mat3** + **mat2**
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=270>
+  =
+ <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=270>
+  +
+ <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_path_probs.png' width=270>
+</p>
 
 Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** from **(1-P(left_child))** and **P(node not in path) = 0**
 
@@ -95,5 +115,7 @@ We do this in either of two ways:
 #### 2.1.2. Directly Multiplying node probabilities. 
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. 
-
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
+</p>
 ## 3. Results
