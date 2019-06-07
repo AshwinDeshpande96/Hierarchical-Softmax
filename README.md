@@ -81,6 +81,7 @@ Row wise multiplication: **mat2** = **d**<sub>i</sub> x **mat1** produces [**|V|
 **node_probabilities** = **mat3** + **mat2**
 
 Step 4 and 5 calculate probabilities of respective nodes: **P(right_child)** from **(1-P(left_child))** and **P(node not in path) = 0**
+
 This logic is explained in: [Hierarchical Softmax as output](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
 ### 2.1. Final Leaf probability calculation
@@ -89,6 +90,7 @@ We do this in either of two ways:
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
 #### 2.1.2. Directly Multiplying node probabilities. 
-
+reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
+This method gives a constant computation time of **O(lg|V|)**. 
 
 ## 3. Results
