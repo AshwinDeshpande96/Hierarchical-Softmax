@@ -113,7 +113,7 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
   </p>
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=510>
 </p>
 
 #### 2.1.2. Log Method
