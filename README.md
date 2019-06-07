@@ -84,13 +84,13 @@ This produces a (**|V|-1**, 1) matrix
 Each word/leaf has a path from the root. Length of this path will be the height of the tree.
 <p align='center'> <b>h</b> = Ceiling(lg(<b>|V|</b>)) </p>
 
-Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: [**|V|**, **|V|-1**] is created with each node in path consisting of 1 for left child and -1 for right child:
+Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: (**|V|**, **|V|-1**) is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=540>
 </p>
 
 * Step-5:
-Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision_matrix** produces [**|V|**, **|V|-1**] with matrix respective node probabilities. **base** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
+Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision_matrix** produces (**|V|**, **|V|-1**) with matrix respective node probabilities. **base** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
 <p align='center'>
   <b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
   </p>
@@ -110,7 +110,7 @@ This logic is explained in: [Hierarchical Softmax as output](https://becominghum
 We do this in either of two ways: 
 #### 2.1.1. Reduce Product
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
-This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: [**|V|**, **|V|-1**]) to the final probabilities (shape: [**|V|**, 1]).
+This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: (**|V|**, **|V|-1**)) to the final probabilities (shape: (**|V|**, 1)).
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
   </p>
