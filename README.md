@@ -143,7 +143,7 @@ p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log
 
 But we see that by inducing these two step process(line-4 and line-6) the time increases. (Fig-9)
 
-    1 def hierarchical_softmax2(inp, tree):
+    1 def hierarchical_softmax(inp, tree):
     2   x1 = tf.multiply(tree.decision_matrix, input)
     3   x1 = tree.base + x1
     4   x1 = tf.log(x1)                                   #extra step #1
