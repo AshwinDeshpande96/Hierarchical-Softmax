@@ -84,16 +84,16 @@ d<sub>i</sub> = sigmoid(**node_vector**) produces a (**|V|-1**, 1) matrix, each 
 Each word/leaf has a path from the root. Length of this path will be the height of the tree.
 <p align='center'> <b>h</b> = Ceiling(lg(<b>|V|</b>)) </p>
 
-Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **mat1** of shape: [**|V|**, **|V|-1**] is created with each node in path consisting of 1 for left child and -1 for right child:
+Hence each **|V|** is defined by a set of **h** internal nodes. **|V|** leafs will have less than or equal to **h** nodes in the path from root to leaf. Since, number of nodes in path will be a subset of d<sub>i</sub>, a sparse matrix **decision_matrix** of shape: [**|V|**, **|V|-1**] is created with each node in path consisting of 1 for left child and -1 for right child:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/matrix1.jpg' width=270>
 </p>
 
 * Step-5:
-Row wise multiplication: **mat2** = **d**<sub>i</sub> x **mat1** produces [**|V|**, **|V|-1**] with matrix respective node probabilities. **mat3** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
+Row wise multiplication: **intermed_path_prob** = **d**<sub>i</sub> x **decision_matrix** produces [**|V|**, **|V|-1**] with matrix respective node probabilities. **base** is a base matrix with value 1 in the location where node in **mat2** is negative(right child) and 0 for positive(left child).
 
-**node_probabilities** = **mat3** + **mat2**
+**corrected_probs** = **base** + **intermed_path_prob**
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=270>
   =
@@ -108,14 +108,19 @@ This logic is explained in: [Hierarchical Softmax as output](https://becominghum
 
 ### 2.1. Final Leaf probability calculation
 We do this in either of two ways: 
-<p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
-</p>
-
-#### 2.1.2. Directly Multiplying node probabilities. 
+#### 2.1.1. Directly Multiplying node probabilities. 
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
-This method gives a constant computation time of **O(lg|V|)**. 
+This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: [**|V|**, **|V|-1**]) to the final probabilities (shape: [**|V|**, 1]).
+<p align='center'> 
+  <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
+  </p>
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=270>
+</p>
+
+### 2.1.2. Reducing matrix and using Log Method
+
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=300>
 </p>
 ## 3. Results
