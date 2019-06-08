@@ -184,4 +184,5 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
+
 Full Code: [Hierarchical Softmax](https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/hsm.ipynb)
