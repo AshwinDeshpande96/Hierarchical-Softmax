@@ -40,6 +40,10 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
 
 ## 2. Architecture
 
+We devise a method where the control statements involved in fetching subset of nodes from a hierarchical binary tree are converted into direct matrix multiplication. This is done because in libraries such as keras the operations in forward-function needs to be differentiable. Hence, all the operations are matrix manipulation type that have gradients defined in keras which allows for back-propagation.
+
+The method is as follows:
+
 Given a vocabulary of words **V**, 
 
 Number of words/leaves will be **|V|**.
@@ -162,5 +166,5 @@ Following is the asymptotic relation with respected to increasing vocabulary siz
 
 This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=400>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
