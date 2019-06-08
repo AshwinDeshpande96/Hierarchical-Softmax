@@ -133,14 +133,19 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
 Taking idea of negative log-likelihood wherein multiplication is replaced with summation, because multiplication incurs more comptutation costs than sum, this method was proposed to minimize repetitive multiply by one. 
 
 For example the decisions probabilities for left most leaf of a 10,000 size vocabulary will be **D** = [p<sub>1</sub>, p<sub>2</sub>, ..., p<sub>14</sub>, 1<sub>15</sub>, 1<sub>16</sub>, 1<sub>17</sub>, .... ,1<sub>9999</sub>].
-We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> in two step process.
-1. log<sub>n</sub>(**D**) to obtain log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>)
+We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> in three step process.
+1. Logarithm of **corrected_probs**: First Row(**D**) of that operation:
+<p align='center'>
+  log<sub>n</sub>(<b>D</b>) to obtain log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>) </b>
+</p>
+2. Summation of logged values: 
+<p align='left'>
+  Sum(log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>)</p> obtains
+<p align='right'>
+   = log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</p>
 
-Sum(log<sub>n</sub>(p<sub>1</sub>) , log<sub>n</sub>(p<sub>2</sub>) , log<sub>n</sub>(p<sub>3</sub>) , .... , log<sub>n</sub>(p<sub>14</sub>) ,  log<sub>n</sub>(1<sub>15</sub>) , log<sub>n</sub>(1<sub>16</sub>) , log<sub>n</sub>(1<sub>17</sub>) , .... , log<sub>n</sub>(1<sub>9999</sub>) obtains 
-    
-   = log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)
-
-2.  p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup>
+3.  Exponentiate value to obtain the product
+p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup>
 
 Both methods result in the same probability (Fig-8), but log method has a disadvantage of losing information in logarithm and exponent function. Even though the probability prediction by both method is correct (Verification: Sum all values to obtain 1.0 - 100% Probability accross all possible output classes), floating point precision is reduced to limited decimal places (rounded off) in the log and exp operation as compared to Reduce Product method which keeps all less important decimal digits.
 <p align='center'>
