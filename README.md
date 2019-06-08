@@ -171,7 +171,7 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
 We see significant difference in the computational cost between the softmax and hierarchical softmax model.
 Following is the asymptotic relation with respected to increasing vocabulary size **|V|**.
 * Softmax: O(|V|) - (Code-3)
-* Hierarchical Softmax: O(lg|V|) - (Code - 2)
+* Hierarchical Softmax: O(lg|V|) - (Code - 1)
 
       def Softmax(input):
         e = tf.math.exp(input)
