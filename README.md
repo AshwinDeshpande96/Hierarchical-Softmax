@@ -128,9 +128,6 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
   </p>
-<p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=510>
-</p>
 
 #### 2.1.2. Log Method
 Taking idea of negative log-likelihood wherein multiplication is replaced with summation, because multiplication incurs more comptutation costs than sum, this method was proposed to minimize repetitive multiply by one. 
@@ -145,6 +142,10 @@ We obtain p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> i
 
 p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub> = e<sup>log<sub>n</sub>(p<sub>1</sub> x p<sub>2</sub> x p<sub>3</sub> x ... x p<sub>14</sub>)</sup>
 
+Both methods result in the same probability, but log method has a disadvantage of losing information in logarithm and exponent function. Even though the probability prediction by both method is correct (Verification: Sum all values to obtain 1.0 - 100% Probability accross all possible output classes), floating point precision is reduced to limited decimal places (rounded off) in the log and exp operation as compared to Reduce Product method which keeps all less important decimal digits.
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=510>
+</p>
 But we see that by inducing the two step process(line-4 and line-6) the computational cost increases. (Fig-9)
 
     1 def hierarchical_softmax(inp, tree):
