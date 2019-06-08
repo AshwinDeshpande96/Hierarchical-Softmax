@@ -88,7 +88,7 @@ Next Operation: **q**<sub>i</sub> x **r_hat** for all i = 1 to **|V|**-1.
 
 Hence a matrix is created with **|V|** rows, and each row consists **|V|**-1 columns. Column values is either of three values values (1, -1, 0) signifying left-child, right-child or not-in-path. This matrix is called **decision_matrix**. This is a sparse matrix of shape: (**|V|**, **|V|-1**). (Fig-6)
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Decision_matrix.png' width=270>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/matrix_decisions.gif' width=560>
 </p>
 
 * Step-5: Since we have decisions for every leaf, we can now obtain the probabilities associated with those decisions. 
