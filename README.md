@@ -125,7 +125,7 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
     3   x1 = tree.base + x1
     4   return tf.math.reduce_prod(x1, axis=1)
     
-      Code-1: Reduce Product Hierarchical Softmax Function      
+ <p align='center'> Code-1: Reduce Product Hierarchical Softmax Function      </p>
       
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
@@ -161,7 +161,7 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
     5   x1 = tf.math.reduce_sum(x1, axis=1)               #reduce_prod is replaced by reduce_sum
     6   return tf.math.exp(x1)                            #extra step #2
     
-          Code-2: Log Method Hierarchical Softmax Function
+<p align='center'> Code-2: Log Method Hierarchical Softmax Function </p>
           
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
@@ -178,7 +178,7 @@ Following is the asymptotic relation with respected to increasing vocabulary siz
         s = tf.math.reduce_sum(e)
         return e/s
         
-        Code-3: Softmax Function
+<p align='center'> Code-3: Softmax Function </p>
         
 This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
 <p align='center'>
