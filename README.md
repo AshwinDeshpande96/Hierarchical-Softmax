@@ -150,7 +150,7 @@ Both methods result in the same probability (Fig-8), but log method has a disadv
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=510>
 </p>
-But we see that by inducing the two step process(line-4 and line-6) the computational cost increases. (Fig-9)
+But we see that by inducing the three step process(line-4 and line-6) the computational cost increases. (Fig-9)
 
     1 def hierarchical_softmax(inp, tree):
     2   x1 = tf.multiply(tree.decision_matrix, input)
