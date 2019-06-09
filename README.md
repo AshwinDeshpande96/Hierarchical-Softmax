@@ -58,6 +58,7 @@ Eq-2 is executed as described in following steps:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/sigmoid.png' width=310>
 </p>
+
 `Note: We do not include biases, but incorporating bias is a trivial task: Adding bias will not make any changes to shape of the vectors If necessary can be added after Step-2.
 `
 
