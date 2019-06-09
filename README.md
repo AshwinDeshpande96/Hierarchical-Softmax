@@ -32,8 +32,8 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
       * If there are 8 words in vocabulary (output classes)(Fig-1)
         * Each of q<sub>i</sub> are multiplied with output r_hat and activated using sigmoid. Gives the probability of decision going to left subtree. <p align='center'> P(d<sub>i</sub> = 1): sigmoid( r_hat * q<sub>i</sub> + b<sub>i</sub>) </p>
         * Each leaf is scored according to it's decision code. For example: 
-          * leaf_5: P(d<sub>1</sub>=1, d<sub>2</sub>=1, d<sub>3</sub>=1)
-          * leaf_3: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
+          * leaf_5: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
+          * leaf_3: P(d<sub>1</sub>=1, d<sub>2</sub>=0, d<sub>5</sub>=1)
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/tree.png'>
 </p>
