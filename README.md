@@ -59,7 +59,7 @@ Eq-2 is executed as described in following steps:
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/sigmoid.png' width=310>
 </p>
 
-`Note: We do not include biases, but incorporating bias is a trivial task: Adding bias will not make any changes to shape of the vectors If necessary can be added after Step-2.
+`Note: We do not include biases, but incorporating bias is a trivial task: Adding bias will not make any changes to shape of the vectors. If necessary can be added after Step-2.
 `
 
 * Step-1: Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|**-1, 100, 1)(Fig-3) is created for **q**<sub>i</sub> where i = 1 to  **|V|**-1.
