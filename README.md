@@ -32,8 +32,8 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
       * If there are 8 words in vocabulary (output classes)(Fig-1)
         * Each of q<sub>i</sub> are multiplied with output r_hat and activated using sigmoid. Gives the probability of decision going to left subtree. <p align='center'> P(d<sub>i</sub> = 1): sigmoid( r_hat * q<sub>i</sub> + b<sub>i</sub>) </p>
         * Each leaf is scored according to it's decision code. For example: 
-          * leaf_5: P(d<sub>1</sub>=1, d<sub>2</sub>=1, d<sub>3</sub>=1)
-          * leaf_3: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
+          * leaf_5: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
+          * leaf_3: P(d<sub>1</sub>=1, d<sub>2</sub>=0, d<sub>5</sub>=1)
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/tree.png'>
 </p>
@@ -58,6 +58,9 @@ Eq-2 is executed as described in following steps:
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/sigmoid.png' width=310>
 </p>
+
+`Note: We do not include biases, but incorporating bias is a trivial task: Adding bias will not make any changes to shape of the vectors. If necessary can be added after Step-2.
+`
 
 * Step-1: Here **q**<sub>i</sub> is a vector of shape (100, 1). Hence, a matrix of shape **node_vector** = (**|V|**-1, 100, 1)(Fig-3) is created for **q**<sub>i</sub> where i = 1 to  **|V|**-1.
 
@@ -124,6 +127,8 @@ This method gives a constant computation time of **O(lg|V|)**. This operation re
     2   x1 = tf.multiply(tree.decision_matrix, inp)
     3   x1 = tree.base + x1
     4   return tf.math.reduce_prod(x1, axis=1)
+    
+ <p align='center'> Code-1: Reduce Product Hierarchical Softmax Function      </p>
       
 <p align='center'> 
   <b> final_prob </b> = reduce_product(<b>corrected_probs</b>)
@@ -158,18 +163,48 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
     4   x1 = tf.log(x1)                                   #extra step #1
     5   x1 = tf.math.reduce_sum(x1, axis=1)               #reduce_prod is replaced by reduce_sum
     6   return tf.math.exp(x1)                            #extra step #2
- 
+    
+<p align='center'> Code-2: Log Method Hierarchical Softmax Function </p>
+          
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Log%20method%20vs%20Reduce%20Product.png' width=400>
 </p>
 
 ## 3. Results
+
+In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
+* Simulated Word Vector r_hat is generated once for each Vocabulary Size.
+  * We chose vocabulary sizes: [1000, 5000, 10000, 15000, 16000], increasing incrementally
+  * 16000-18000 is the asymptotic limit for memory of 12GB.
+* A vector of shape (1, |V|-1) is generated 5 times each iteration and used for both algorithms sequentially.
+
+We can see that the platform for comparison is just and unbiased.
+
+Initial vocabulary size is 1000 and not lower as the performance of hierarchical structure is best evaluated for larger data sizes. While this algorithms performs well at lower sizes, it's scalability is best judged when the data size is increased dramatically. When the vocabulary size increases from 5k to 10k, i.e. it is double the time taken remains almost constant. This is due to the nature of the logarithmic asymptote, where the time taken may increase at lower vocabulary sizes, but plateaus eventually.
+
 We see significant difference in the computational cost between the softmax and hierarchical softmax model.
 Following is the asymptotic relation with respected to increasing vocabulary size **|V|**.
-* Softmax: O(|V|)
-* Hierarchical Softmax: O(lg|V|)
+* Softmax: O(|V|) - (Code-3)
+* Hierarchical Softmax: O(lg|V|) - (Code - 1)
 
+      def Softmax(input):
+        e = tf.math.exp(input)
+        s = tf.math.reduce_sum(e)
+        return e/s
+        
+<p align='center'> Code-3: Softmax Function </p>
+        
 This is reflected very closely in run-time measurements. From Fig-10 we can see that Hierarchical-Softmax time remains almost constant while Softmax time increases linearly.
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
+
+In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm.
+
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Hierarchical%20Softmax).png' width=460>
+ <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Softmax).png' width=460>
+ 
+</p>
+
+Full Code: [Hierarchical Softmax](https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/hsm.ipynb)
