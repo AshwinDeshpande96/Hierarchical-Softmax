@@ -199,4 +199,5 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
 
+In addition, there are in-library costs that may not the true nature of the algorithm. 
 Full Code: [Hierarchical Softmax](https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/hsm.ipynb)
