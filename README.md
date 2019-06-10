@@ -202,7 +202,7 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm.
 
 <p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=920> 
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=840> 
 </p>
 
 Full Code: [Hierarchical Softmax](https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/hsm.ipynb)
