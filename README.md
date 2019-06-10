@@ -171,6 +171,17 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
 </p>
 
 ## 3. Results
+
+In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
+* Simulated Word Vector r_hat is generated once for each Vocabulary Size.
+  * We chose vocabulary sizes: [1000, 5000, 10000, 15000, 16000], increasing incrementally
+  * 16000-18000 is the asymptotic limit for memory of 12GB.
+* A vector of shape (1, |V|-1) is generated 5 times each iteration and used for both algorithms sequentially.
+
+We can see that the platform for comparison is just and unbiased.
+
+Initial vocabulary size is 1000 and not lower as the performance of hierarchical structure is best evaluated for larger data sizes. While this algorithms performs well at lower sizes, it's scalability is best judged when the data size is increased dramatically. When the vocabulary size increases from 5k to 10k, i.e. it is double the time taken remains almost constant. This is due to the nature of the logarithmic asymptote, where the time taken may increase at lower vocabulary sizes, but plateaus eventually.
+
 We see significant difference in the computational cost between the softmax and hierarchical softmax model.
 Following is the asymptotic relation with respected to increasing vocabulary size **|V|**.
 * Softmax: O(|V|) - (Code-3)
