@@ -175,7 +175,10 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
 In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
 * Simulated Word Vector r_hat is generated once for each Vocabulary Size.
   * We chose vocabulary sizes: [1000, 5000, 10000, 15000, 16000], increasing incrementally
-  * 16000-18000 is the asymptotic limit for memory of 12GB.
+  * 16000-18000 is the asymptotic limit for memory of 12GB. This algorithm is limited to a vocabulary of size 18,000 due to the usage decision matrix. Decision matrix consumes memory of the size |V| * (|V|-1), which is in the square order:
+    * Decision Matrix Method: O(|V|<sup>2</sup>
+    * Softmax Method: O(|V|)
+ As significant as the speed-ups are it is limited to available memory, hence optimum solution will be a trade-off. Availability of every decision is a major catalyst in estimating node probabilities. Depending on available memory we can partially use decision matrix and partially calculate the decision paths at runtime.
 * A vector of shape (1, |V|-1) is generated 5 times each iteration and used for both algorithms sequentially.
 
 We can see that the platform for comparison is just and unbiased.
