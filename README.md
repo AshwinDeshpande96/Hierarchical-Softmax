@@ -212,7 +212,7 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 
 # Conclusion & Future Work
 
-Hierarchial Softmax has been proven to reduce computation time, although at the cost of some accuracy the speed-up is substantial. Our matrix method of implementation contributes easy to use and efficient interface to hierarchical softmax architecture. As the **decision_matrix** and **base** are created when the model is built and not while training, therefore is majority of computation is performed only once, irrespective of the EPOCH length. Command: `tree = Tree(|V|)` consists of everything from creating trees, paths, decision, decision_matrix & base. It is further easily accessible by simply using `tree` object: tree.decision & tree.base returns computed matrices.
+Hierarchial Softmax has been proven to reduce computation time, although at the cost of some accuracy the speed-up is substantial. Our matrix method of implementation contributes easy to use and efficient interface to hierarchical softmax architecture. The **decision_matrix** and **base** are created when the model is built and not while training/testing, therefore is majority of computation is performed only once, irrespective of the EPOCH length. Command: `tree = Tree(|V|)` consists of everything from creating trees, paths, decision, decision_matrix & base. It is further easily accessible by simply using `tree` object: tree.decision & tree.base returns computed matrices.
 
 In future, we shall try to integrate this method in keras library and made freely available so that there is no need to have expert knowledge to implement this method. User shall be able to use this algorithm as they would with traditional Softmax algorithm.
 
