@@ -172,10 +172,19 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
 
 ## 3. Results
 
-In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
+In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm. (Fig-11)
+
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=840> 
+</p>
+
+Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
 * Simulated Word Vector r_hat is generated once for each Vocabulary Size.
   * We chose vocabulary sizes: [1000, 5000, 10000, 15000, 16000], increasing incrementally
-  * 16000-18000 is the asymptotic limit for memory of 12GB.
+  * 16000-18000 is the asymptotic limit for memory of 12GB. This algorithm is limited to a vocabulary of size 18,000 due to the usage decision matrix. Decision matrix consumes memory of the size |V| * (|V|-1), which is in the square order:
+    * Decision Matrix Method: O(|V|<sup>2</sup>)
+    * Softmax Method: O(|V|)
+ As significant as the speed-ups are it is limited to available memory, hence optimum solution will be a trade-off. Availability of every decision is a major catalyst in estimating node probabilities. Depending on available memory we can partially use decision matrix and partially calculate the decision paths at runtime.
 * A vector of shape (1, |V|-1) is generated 5 times each iteration and used for both algorithms sequentially.
 
 We can see that the platform for comparison is just and unbiased.
@@ -199,15 +208,11 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
 
-In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm.
 
-<p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=840> 
-</p>
 
 # Conclusion & Future Work
 
-Hierarchial Softmax has been proven to reduce computation time, although at the cost of some accuracy the speed-up is substantial. Our matrix method of implementation contributes easy to use and efficient interface to hierarchical softmax architecture. As the **decision_matrix** and **base** are when the model is built and not while training, this method is free of major computation. Command: `tree = Tree(|V|)` consists of everything from creating trees, paths, decision, decision_matrix & base. It is further easily accessible by simply using `tree` object: tree.decision & tree.base returns computed matrices.
+Hierarchial Softmax has been proven to reduce computation time, although at the cost of some accuracy the speed-up is substantial. Our matrix method of implementation contributes easy to use and efficient interface to hierarchical softmax architecture. As the **decision_matrix** and **base** are created when the model is built and not while training, therefore is majority of computation is performed only once, irrespective of the EPOCH length. Command: `tree = Tree(|V|)` consists of everything from creating trees, paths, decision, decision_matrix & base. It is further easily accessible by simply using `tree` object: tree.decision & tree.base returns computed matrices.
 
 In future, we shall try to integrate this method in keras library and made freely available so that there is no need to have expert knowledge to implement this method. User shall be able to use this algorithm as they would with traditional Softmax algorithm.
 
