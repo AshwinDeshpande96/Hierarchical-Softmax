@@ -172,7 +172,13 @@ But we see that by inducing the three step process(line-4 and line-6) the comput
 
 ## 3. Results
 
-In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
+In order to test scalability we do not integrate Hierarchical-Softmax algorithm into a language model. Since probability distribution is calculated at the end of a neural network. We need only test the computational cost that is incurred in the output layer. The layers preceding the output layer of a language model, incur same delay for either Softmax or Hierarchical Softmax. Time taken to calculate probability distribution among the |V| classes remain independent of the predicted feature vector-r_hat, given the size of the feature vector remains unchanged. In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm.
+
+<p align='center'>
+<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=840> 
+</p>
+
+Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is randomly generated every iteration.
 * Simulated Word Vector r_hat is generated once for each Vocabulary Size.
   * We chose vocabulary sizes: [1000, 5000, 10000, 15000, 16000], increasing incrementally
   * 16000-18000 is the asymptotic limit for memory of 12GB. This algorithm is limited to a vocabulary of size 18,000 due to the usage decision matrix. Decision matrix consumes memory of the size |V| * (|V|-1), which is in the square order:
@@ -202,11 +208,7 @@ This is reflected very closely in run-time measurements. From Fig-10 we can see 
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Softmax%20vs%20Hierarchical%20Softmax.png' width=460>
 </p>
 
-In addition, there are in-library costs that may contribute to further delays. Functions in keras and Tensorflow that perform same operations give different time delays. These delays may not truly exemplify the performance of the algorithm.
 
-<p align='center'>
-<img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Time-%20Keras%20vs%20Tensorflow%20(Both).png' width=840> 
-</p>
 
 # Conclusion & Future Work
 
