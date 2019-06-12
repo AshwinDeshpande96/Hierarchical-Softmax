@@ -10,7 +10,7 @@ In the paper [Strategies for Training Large Vocabulary Neural Language Models](h
   4. Noise Contrastive Estimation
   5. Infrequent Normalization
 
-This project builds on the idea in Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf).
+This project builds on the idea in Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf) - [Lecture](https://www.youtube.com/watch?v=Rtk_juucCHc)
 
 ## 1. Introduction
 
