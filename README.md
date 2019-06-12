@@ -40,6 +40,7 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/tree.png'>
 </p>
+
 Task specific feature vector perform well in every NLP task, because the tailored feature vector represent the training data well: [Deep contextualized word representations](https://arxiv.org/pdf/1802.05365.pdf)
 
 
