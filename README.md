@@ -2,6 +2,7 @@
 This is a scalable hierarchical softmax layer for Neural Networks with large output classes.
 In our previous project Next-Word Prediction: [Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
 there was an issue of large vocabulary. There was a bottleneck at the Softmax Layer due to the large number of output classes.
+
 In the paper [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906) many solutions are proposed:
   1. Hierarchical Softmax
   2. Differentiated Softmax
@@ -10,7 +11,9 @@ In the paper [Strategies for Training Large Vocabulary Neural Language Models](h
   5. Infrequent Normalization
 
 This project builds on the idea in Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf).
+
 ## 1. Introduction
+
 In Neural Network Language Models(NNLM) with huge number of words in vocabulary, exhaustive activation functions such as Softmax are very slow.  This paper addresses shortcomings of Softmax. It consists of mainly two ideas
 1. Representing words as low-dimensional feature vectors - to learn relation between words and contexts.
 2. Clustering similar words in similar components(subtree) using the feature vectors.
@@ -30,7 +33,9 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
     * Will be a predicted feature vector r_hat
     * So output shape at each forward pass will be (1,100)
       * If there are 8 words in vocabulary (output classes)(Fig-1)
-        * Each of q<sub>i</sub> are multiplied with output r_hat and activated using sigmoid. Gives the probability of decision going to left subtree. <p align='center'> P(d<sub>i</sub> = 1): sigmoid( r_hat * q<sub>i</sub> + b<sub>i</sub>) </p>
+        * Each of q<sub>i</sub> are multiplied with output r_hat and activated using sigmoid. Gives the probability of decision going to left subtree. 
+        <p align='center'> P(d<sub>i</sub> = 1): sigmoid( r_hat * q<sub>i</sub> + b<sub>i</sub>) </p>
+        
         * Each leaf is scored according to it's decision code. For example: 
           * leaf_5: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
           * leaf_3: P(d<sub>1</sub>=1, d<sub>2</sub>=0, d<sub>5</sub>=1)
@@ -76,11 +81,11 @@ Eq-2 is executed as described in following steps:
 </p>
 
 * Step-2: 
-Next Operation: **q**<sub>i</sub> x **r_hat** for all i = 1 to **|V|**-1. 
+  Next Operation: **q**<sub>i</sub> x **r_hat** for all i = 1 to **|V|**-1. 
 
-**node_vector** consists of **q**<sub>i</sub> for all i = 1 to **|V|**-1.
+  **node_vector** consists of **q**<sub>i</sub> for all i = 1 to **|V|**-1.
 
-**node_vector** x **r_hat** produces a (**|V|-1**, 1) intermediate matrix (Fig-4)
+  **node_vector** x **r_hat** produces a (**|V|-1**, 1) intermediate matrix (Fig-4)
 
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/intermed_q.png' width=510 /> 
@@ -115,7 +120,8 @@ For this purpose **base** is a matrix with value 1 in the location where node in
 `Note: base will consist of 1 in places where node is not present in path of that path. This does not mean that node has 100% probability, it is a minor correction to obtain the multplication of d_i(Eq-2) along say: leaf_x: [0.1, 0.2, 0.3, 0, 0, 0]. this will obtain a P(leaf_x) = 0, hence it converted to [0.1, 0.2, 0.3, 1, 1, 1] to obtain P(leaf_x) = 0.0006`
 <p align='center'>
   <b>corrected_probs</b> = <b>base</b> + <b>intermed_path_prob</b>
-  </p>
+</p>
+
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base_prob.png' width=260, height=300>
  <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/base.png' width=300, height=290>
@@ -125,8 +131,10 @@ For this purpose **base** is a matrix with value 1 in the location where node in
 For further details: [Hierarchical Softmax as output activation function in neural-network](https://becominghuman.ai/hierarchical-softmax-as-output-activation-function-in-neural-network-1d19089c4f49)
 
 ### 2.1. Final Probability
+
 We do this in either of two ways: 
 #### 2.1.1. Reduce Product
+
 reduce_prod function from tensorflow multiplies all the node probabilities of d<sub>i</sub> of each row(leaf or word).
 This method gives a constant computation time of **O(lg|V|)**. This operation reduces **corrected_probs** (shape: (**|V|**, **|V|-1**)) to the final probabilities (shape: (**|V|**, 1)).(Fig-8)
         
@@ -162,6 +170,7 @@ Both methods result in the same probability (Fig-8), but log method has a disadv
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/Final_probs.png' width=510>
 </p>
+
 But we see that by inducing the three step process(line-4 and line-6) the computational cost increases. (Fig-9)
 
     1 def hierarchical_softmax(inp, tree):
@@ -191,6 +200,7 @@ Hence we simulate a condition where a feature vector of  shape (1, |V|-1) is ran
   * 16000-18000 is the asymptotic limit for memory of 12GB. This algorithm is limited to a vocabulary of size 18,000 due to the usage decision matrix. Decision matrix consumes memory of the size |V| * (|V|-1), which is in quadratic order:
     * Decision Matrix Method: O(|V|<sup>2</sup>)
     * Softmax Method: O(|V|)
+ 
  As significant as the speed-ups are it is limited to available memory, hence optimum solution will be a trade-off. Availability of every decision is a major catalyst in estimating node probabilities. Depending on available memory we can partially use decision matrix and partially calculate the decision paths at runtime.
 * A vector of shape (1, |V|-1) is generated 5 times each iteration and used for both algorithms sequentially.
 
