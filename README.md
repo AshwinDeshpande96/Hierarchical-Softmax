@@ -34,9 +34,15 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
         * Each leaf is scored according to it's decision code. For example: 
           * leaf_5: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
           * leaf_3: P(d<sub>1</sub>=1, d<sub>2</sub>=0, d<sub>5</sub>=1)
+* Fit the model with given data
+  * As this is a sequential type of model, output at time step t is used at the next step t+1.
+  * This creates feature vectors r_hat depending on the context as we train.
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/tree.png'>
 </p>
+Task specific feature vector perform well in every NLP task, because the tailored feature vector represent the training data well: [Deep contextualized word representations](https://arxiv.org/pdf/1802.05365.pdf)
+
+
 
 ## 2. Architecture
 
