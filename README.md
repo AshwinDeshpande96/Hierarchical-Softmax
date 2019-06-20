@@ -2,13 +2,17 @@
 This is a scalable hierarchical softmax layer for Neural Networks with large output classes.
 In our previous project Next-Word Prediction: [Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
 there was an issue of large vocabulary. There was a bottleneck at the Softmax Layer due to the large number of output classes.
+Since softmax is an exhaustive method of calculating probabilities distribution across the output classes, it scales poorly with growing size of the vocabulary. Softmax needs a vector that produces scores for each class. This is done only to facilitate the Softmax method. That is, the vector need not be as long as the size of vocabulary. In order to obtain this size, even a smaller feature vector(vector which represents the word's context - these are normally of size 256 or less) is scaled up to meet softmax requirements. A huge amount of parameters are created in the final fully connected layer. They are usually of the scale (feature_vector_size * vocabulary_size). For example, a vocabulary of size only 5000 will need 256 * 5000 parameters, i.e. 1280000 parameters only a single layer. This usually makes up for more than half of the total parameters
+Given that feature vector is already obtained in the previous layer we needn't scale it up to another vector. In order to solve this issue much research was conducted.
 
-In the paper [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906) many solutions are proposed:
+In the paper [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906) few solutions are proposed:
   1. Hierarchical Softmax
   2. Differentiated Softmax
   3. Target Sampling
   4. Noise Contrastive Estimation
   5. Infrequent Normalization
+
+Hierarchial Softmax has great scalibility features. This is not a softmax method, i.e. it does not produce normalized exponentiated probabilities. We will see the proposed method as follows:
 
 This project builds on the idea in Geoff Hinton's paper: [A Scalable Hierarchical Distributed Language Model](https://www.cs.toronto.edu/~amnih/papers/hlbl_final.pdf) - [Lecture](https://www.youtube.com/watch?v=Rtk_juucCHc)
 
@@ -40,7 +44,7 @@ Following is the summary of the Hierarchical Log-Bilinear Model. (If this explan
           * leaf_5: P(d<sub>1</sub>=0, d<sub>3</sub>=1, d<sub>6</sub>=1)
           * leaf_3: P(d<sub>1</sub>=1, d<sub>2</sub>=0, d<sub>5</sub>=1)
 * Fit the model with given data
-  * As this is a sequential type of model, output at time step t is used at the next step t+1.
+  * This is a teacher-forcing type of model, output at time step t is used at the next step t+1.
   * This creates feature vectors r_hat depending on the context as we train.
 <p align='center'>
 <img src='https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/tree.png'>
