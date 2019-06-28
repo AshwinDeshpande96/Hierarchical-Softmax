@@ -237,4 +237,6 @@ Hierarchial Softmax has been proven to reduce computation time, although at the 
 
 In future, we shall try to reduce memory costs to an order of O(|V|*log|V|) and integrate this method in keras library for easy implementation. User shall be able to use this algorithm as they would with traditional Softmax algorithm.
 
+*An investigation of negative sampling in contrast with hierarchical softmax will be published soon.*
+
 Full Code: [Hierarchical Softmax](https://github.com/AshwinDeshpande96/Hierarchical-Softmax/blob/master/hsm.ipynb)
