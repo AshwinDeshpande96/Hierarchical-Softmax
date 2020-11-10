@@ -3,7 +3,8 @@ This is a scalable hierarchical softmax layer for Neural Networks with large out
 In our previous project Next-Word Prediction: [Next-Word Prediction](https://github.com/AshwinDeshpande96/Speech-Generation)
 there was an issue of large vocabulary. There was a bottleneck at the Softmax Layer due to the large number of output classes.
 Since softmax is an exhaustive method of calculating probabilities distribution across the output classes, it scales poorly with growing size of the vocabulary. Softmax needs a vector that produces scores for each class. This is done only to facilitate the Softmax method. That is, the vector need not be as long as the size of vocabulary. In order to obtain this size, even a smaller feature vector(vector which represents the word's context - these are normally of size 256 or less) is scaled up to meet softmax requirements. A huge amount of parameters are created in the final fully connected layer. They are usually of the scale (feature_vector_size * vocabulary_size). For example, a vocabulary of size only 5000 will need 256 * 5000 parameters, i.e. 1280000 parameters only a single layer. This usually makes up for more than half of the total parameters
-Given that feature vector is already obtained in the previous layer we needn't scale it up to another vector. In order to solve this issue much research was conducted.
+Given that feature vector is already obtained in the previous layer we needn't scale it up to another vector. In order to solve this issue we employed methods described in this project.
+
 
 In the paper [Strategies for Training Large Vocabulary Neural Language Models](https://arxiv.org/abs/1512.04906) few solutions are proposed:
   1. Hierarchical Softmax
